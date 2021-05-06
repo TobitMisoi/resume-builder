@@ -1,12 +1,25 @@
-import { GridContainer, GridItem } from "components/layout/grid";
-import { CustomForm } from "components/layout/customForm";
-
-import * as React from "react";
+import * as React from 'react'
+import { GridContainer, GridItem } from 'components/layout/grid'
+import { CustomForm } from 'components/layout/customForm'
+import { useForm } from 'react-hook-form'
 
 // local import
-import store from "./store";
+import store from './store'
+import { ResumeContext } from 'context/resumeContext'
 
 const PersonalInfo: React.FC = () => {
+  const context = React.useContext(ResumeContext)
+  const { content, removeFakeData, updatePersonalInfoData } = context
+
+  const { handleSubmit } = useForm()
+
+  const onSubmit = (data: never) => {
+    removeFakeData()
+    updatePersonalInfoData(data)
+  }
+
+  console.log(content.personalInfo)
+
   return (
     <GridContainer>
       <GridItem>
@@ -17,13 +30,15 @@ const PersonalInfo: React.FC = () => {
             inputProps={{
               name: item.name,
               label: item.label,
-              variant: "outlined",
+              variant: 'outlined',
+              defaultValue: content.data,
+              onChange: handleSubmit(onSubmit)
             }}
           />
         ))}
       </GridItem>
     </GridContainer>
-  );
-};
+  )
+}
 
-export default PersonalInfo;
+export default PersonalInfo
