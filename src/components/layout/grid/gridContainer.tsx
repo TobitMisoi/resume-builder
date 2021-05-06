@@ -1,15 +1,26 @@
-import { Grid } from '@material-ui/core'
-import * as React from 'react'
-import PropTypes from 'prop-types'
+import { Grid, makeStyles } from "@material-ui/core";
+import * as React from "react";
+import PropTypes from "prop-types";
+
+// local imports
+import styles from "./styles";
+
+const useStyles = makeStyles(styles);
 
 const GridContainer: React.FC = (props) => {
-  const { children } = props
+  const classes = useStyles();
 
-  return <Grid container>{children}</Grid>
-}
+  const { children } = props;
+
+  return (
+    <Grid container className={classes.gridContainer}>
+      {children}
+    </Grid>
+  );
+};
 
 GridContainer.propTypes = {
-  children: PropTypes.node
-}
+  children: PropTypes.node,
+};
 
-export default GridContainer
+export default GridContainer;
